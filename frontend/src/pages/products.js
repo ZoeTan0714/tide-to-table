@@ -11,6 +11,9 @@ const productImages = Object.fromEntries(
 const imageAliases = {
 	"White Shrimp / Vannamei": "White Shrimp",
 	"Short Neck Clam/Lala": "Short Neck Clam",
+	"Dory/Basa Fish Slices": "Dory fish",
+	"Fish Nuggets": "fish nugget",
+	"Tiger Prawn": "tiger prawn",
 };
 
 const products = [
@@ -349,6 +352,21 @@ const categories = [
 	{ title: "Others", value: "others", parent: "seafood-ingredients", level: 1 },
 ];
 
+function getProductsForCategory(categoryValue) {
+	const selected = categories.find(({ value }) => value === categoryValue);
+	return products.filter((product) => {
+		if (categoryValue === "all") return true;
+		if (selected?.level === 0) {
+			return product.category === categoryValue || product.subcategory === categoryValue;
+		}
+		return product.subcategory === categoryValue;
+	});
+}
+
+function getCategoryLabel(title, value) {
+	return `${title} (${getProductsForCategory(value).length})`;
+}
+
 function escapeHtml(value) {
 	return String(value).replace(/[&<>"']/g, (character) => ({
 		"&": "&amp;",
@@ -372,7 +390,7 @@ document.querySelector("#app").innerHTML = `
 				<h2>Category</h2>
 				<nav class="product-category-list" aria-label="Filter products by category">
 					${categories.map(({ title, value, level }) => `
-						<button class="product-category${level ? " is-subcategory" : ""}${value === "all" ? " is-active" : ""}" type="button" data-category="${value}" aria-pressed="${value === "all"}"${level === 0 && value !== "all" ? ' aria-expanded="false"' : ""}>${title}</button>
+						<button class="product-category${level ? " is-subcategory" : ""}${value === "all" ? " is-active" : ""}" type="button" data-category="${value}" aria-pressed="${value === "all"}"${level === 0 && value !== "all" ? ' aria-expanded="false"' : ""}>${getCategoryLabel(title, value)}</button>
 					`).join("")}
 				</nav>
 				<nav class="product-category-list product-subcategory-list" aria-label="Subcategories" hidden></nav>
@@ -412,7 +430,7 @@ function updateCategorySelection() {
 	const subcategories = categories.filter(({ parent }) => parent === expandedCategory);
 	subcategoryList.hidden = subcategories.length === 0;
 	subcategoryList.innerHTML = subcategories.map(({ title, value }) => `
-		<button class="product-category is-subcategory${value === selectedCategory ? " is-active" : ""}" type="button" data-category="${value}" aria-pressed="${value === selectedCategory}">${title}</button>
+		<button class="product-category is-subcategory${value === selectedCategory ? " is-active" : ""}" type="button" data-category="${value}" aria-pressed="${value === selectedCategory}">${getCategoryLabel(title, value)}</button>
 	`).join("");
 }
 
@@ -424,14 +442,7 @@ function selectCategory(value) {
 }
 
 function renderProducts(selectedCategory = "all") {
-	const selected = categories.find(({ value }) => value === selectedCategory);
-	const filteredProducts = products.filter((product) => {
-		if (selectedCategory === "all") return true;
-		if (selected?.level === 0) {
-			return product.category === selectedCategory || product.subcategory === selectedCategory;
-		}
-		return product.subcategory === selectedCategory;
-	});
+	const filteredProducts = getProductsForCategory(selectedCategory);
 
 	resultCount.textContent = `${filteredProducts.length} ${filteredProducts.length === 1 ? "product" : "products"}`;
 	productGrid.innerHTML = filteredProducts.length

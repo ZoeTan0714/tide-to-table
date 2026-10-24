@@ -172,6 +172,8 @@ h1 { max-width: 680px; margin: 0 auto 20px; color: #064d78; font-family: "Almara
 .product-spec-tags li { padding: 4px 8px; border: 1px solid #d7e6ed; border-radius: 6px; background: #f4f8fa; color: #356178; font-size: 11px; font-weight: 600; line-height: 1.35; }
 .product-empty-state { grid-column: 1 / -1; margin: 0; padding: 28px; border: 1px solid #e0e8ec; color: #53748a; text-align: center; }
 .contact-details { width: min(920px, 100%); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+.contact-strengths { width: min(920px, 100%); margin: -14px auto 42px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.contact-strengths img { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 8px; background: #f1f5f6; object-fit: contain; }
 .contact-details section { padding: 26px 28px; border-left: 2px solid #d5e2f2; }
 .contact-details h2 { margin: 0 0 14px; color: #111; font-size: 18px; }
 .contact-details address, .contact-details a { display: block; color: #092c42; font-size: 16px; font-style: normal; line-height: 1.7; overflow-wrap: anywhere; }
@@ -189,6 +191,7 @@ h1 { max-width: 680px; margin: 0 auto 20px; color: #064d78; font-family: "Almara
 	.product-subcategory-list .product-category.is-subcategory { width: 100%; min-width: 0; text-align: left; }
 	.product-category.is-active { background: #fff; box-shadow: 0 1px 4px rgba(9,44,66,.12); }
 	.product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+	.contact-strengths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 430px) {

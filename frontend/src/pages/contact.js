@@ -3,6 +3,12 @@ import "../style.css";
 import { renderFooter } from "../components/footer.js";
 import { initializeHeader, renderHeader } from "../components/header.js";
 
+const strengthImages = Object.entries(
+	import.meta.glob("../../../assets/images/strength *.png", { eager: true, query: "?url", import: "default" }),
+)
+	.sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
+	.map(([, imageUrl]) => imageUrl);
+
 document.querySelector("#app").innerHTML = `
 	${renderHeader()}
 	<section class="inner-page contact-page">
@@ -11,6 +17,9 @@ document.querySelector("#app").innerHTML = `
 			<h1>Contact Us</h1>
 			<p>We would be glad to hear from you about our products and supply capabilities.</p>
 		</header>
+		<div class="contact-strengths" aria-label="Our strengths">
+			${strengthImages.map((image, index) => `<img src="${image}" alt="Tide to Table strength ${index + 1}">`).join("")}
+		</div>
 		<div class="contact-details">
 			<section>
 				<h2>Visit Us</h2>
