@@ -1,19 +1,3 @@
-import logo from "../../../assets/images/logo.png";
-
-export function renderHeader() {
-	return `
-		<div class="site-header">
-			<button class="menu-button" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu"><span></span><span></span></button>
-			<nav class="site-menu" id="site-menu" aria-label="Main navigation" hidden>
-				<a href="products.html">Products</a>
-				<a href="contact.html">Contact Us</a>
-			</nav>
-			<a class="brand" href="index.html" aria-label="Tide to Table home"><img src="${logo}" alt="Tide to Table"></a>
-			<a class="header-contact" href="contact.html">Contact Us</a>
-		</div>
-	`;
-}
-
 export function initializeHeader() {
 	const siteHeader = document.querySelector(".site-header");
 	const menuButton = document.querySelector(".menu-button");

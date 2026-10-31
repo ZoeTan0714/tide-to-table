@@ -1,38 +1,5 @@
 import "../style.css";
 
-import { renderFooter } from "../components/footer.js";
-import { initializeHeader, renderHeader } from "../components/header.js";
-
-const strengthImages = Object.entries(
-	import.meta.glob("../../../assets/images/strength *.png", { eager: true, query: "?url", import: "default" }),
-)
-	.sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
-	.map(([, imageUrl]) => imageUrl);
-
-document.querySelector("#app").innerHTML = `
-	${renderHeader()}
-	<section class="inner-page contact-page">
-		<header class="inner-page-heading">
-			<p class="page-eyebrow">Tide to Table</p>
-			<h1>Contact Us</h1>
-			<p>We would be glad to hear from you about our products and supply capabilities.</p>
-		</header>
-		<div class="contact-strengths" aria-label="Our strengths">
-			${strengthImages.map((image, index) => `<img src="${image}" alt="Tide to Table strength ${index + 1}">`).join("")}
-		</div>
-		<div class="contact-details">
-			<section>
-				<h2>Visit Us</h2>
-				<address>808 French Road #04-151 Kitchener Complex<br>Singapore 200808</address>
-			</section>
-			<section>
-				<h2>Get in Touch</h2>
-				<a href="mailto:delphine.lim@tidetotable.com.sg">delphine.lim@tidetotable.com.sg</a>
-				<a href="tel:+6590048780">+65 9004 8780</a>
-			</section>
-		</div>
-	</section>
-	${renderFooter()}
-`;
+import { initializeHeader } from "../components/header.js";
 
 initializeHeader();
